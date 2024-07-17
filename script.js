@@ -23,7 +23,7 @@ document
 
     // create card body div
     let newCardBody = document.createElement("div");
-    newCardbody.setAttribute("class", "card-body");
+    newCardBody.setAttribute("class", "card-body");
     newCard.appendChild(newCardBody);
 
     // create h5 (destination)
@@ -46,7 +46,7 @@ document
 
     // create div for buttons
     let buttonContainer = document.createElement("div");
-    buttonContainer.setAttribute("class row", "card-buttons");
+    buttonContainer.setAttribute("class", "card-buttons row");
     newCardBody.appendChild(buttonContainer);
 
     // create span for left button (edit)
@@ -54,6 +54,7 @@ document
     editButtonSpan.setAttribute("class", "col-md-6");
     editButtonSpan.setAttribute("id", "edit-btn");
     let editButton = document.createElement("button");
+    editButton.textContent = "Edit";
     editButtonSpan.appendChild(editButton);
     buttonContainer.appendChild(editButtonSpan);
 
@@ -62,8 +63,12 @@ document
     removeButtonSpan.setAttribute("class", "col-md-6");
     removeButtonSpan.setAttribute("id", "remove-btn");
     let removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
     removeButtonSpan.appendChild(removeButton);
     buttonContainer.appendChild(removeButtonSpan);
+
+    // alter card container heading
+    document.querySelector("h4").textContent = "My WishList";
 
     // append card to container
     document.getElementById("cardContainer").appendChild(newCard);

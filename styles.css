@@ -60,5 +60,14 @@ button[type="submit"] {
 }
 
 .card {
-  width: 18rem;
+  width: 14rem;
+}
+
+#edit-btn {
+  background-color: #ffc108;
+}
+
+#remove-btn {
+  background-color: #c82333;
+  color: #ffffff;
 }
