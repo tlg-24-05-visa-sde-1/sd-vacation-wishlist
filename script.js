@@ -1,18 +1,4 @@
-// creating a card
-/*
-<div class="card" style="width: 18rem">
-            <img class="card-img-top" src="..." alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-*/
-
-// collect variables
+// add event listener to form
 document
   .getElementById("inputForm")
   .addEventListener("submit", function (event) {
@@ -21,12 +7,63 @@ document
     // collect user input values
     let destinationName = document.getElementById("destinationName").value;
     let location = document.getElementById("location").value;
-    let photo = document.getElementById("photo").value;
+    let photoURL = document.getElementById("photo").value;
     let description = document.getElementById("description").value;
 
-    // create new card
+    // create new card div
     let newCard = document.createElement("div");
     newCard.setAttribute("class", "card");
+
+    // create img
+    let newImage = document.createElement("img");
+    newImage.setAttribute("class", "card-img-top");
+    newImage.setAttribute("src", photoURL);
+    newImage.setAttribute("alt", "Card image cap");
+    newCard.appendChild(newImage);
+
+    // create card body div
+    let newCardBody = document.createElement("div");
+    newCardbody.setAttribute("class", "card-body");
+    newCard.appendChild(newCardBody);
+
+    // create h5 (destination)
+    let newDestinationTitle = document.createElement("h5");
+    newDestinationTitle.setAttribute("class", "card-destination");
+    newDestinationTitle.textContent = destinationName;
+    newCardBody.appendChild(newDestinationTitle);
+
+    // create h6 (location)
+    let newLocation = document.createElement("h6");
+    newLocation.setAttribute("class", "card-location");
+    newLocation.textContent = location;
+    newCardBody.appendChild(newLocation);
+
+    // create p (description)
+    let newDescription = document.createElement("p");
+    newDescription.setAttribute("class", "card-description");
+    newDescription.textContent = description;
+    newCardBody.appendChild(newDescription);
+
+    // create div for buttons
+    let buttonContainer = document.createElement("div");
+    buttonContainer.setAttribute("class row", "card-buttons");
+    newCardBody.appendChild(buttonContainer);
+
+    // create span for left button (edit)
+    let editButtonSpan = document.createElement("span");
+    editButtonSpan.setAttribute("class", "col-md-6");
+    editButtonSpan.setAttribute("id", "edit-btn");
+    let editButton = document.createElement("button");
+    editButtonSpan.appendChild(editButton);
+    buttonContainer.appendChild(editButtonSpan);
+
+    // create span for right button (remove)
+    let removeButtonSpan = document.createElement("span");
+    removeButtonSpan.setAttribute("class", "col-md-6");
+    removeButtonSpan.setAttribute("id", "remove-btn");
+    let removeButton = document.createElement("button");
+    removeButtonSpan.appendChild(removeButton);
+    buttonContainer.appendChild(removeButtonSpan);
 
     // append card to container
     document.getElementById("cardContainer").appendChild(newCard);
@@ -34,5 +71,3 @@ document
     // clear the form
     document.querySelector("form").reset();
   });
-
-// add event listener to form
