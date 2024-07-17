@@ -78,3 +78,10 @@ document
     // clear the form
     document.querySelector("form").reset();
   });
+
+// add event listener to remove button
+document.getElementById("cardContainer").addEventListener("click", (event) => {
+  if (event.target.classList.contains("btn-danger")) {
+    event.target.parentNode.parentNode.parentNode.parentNode.remove();
+  }
+});
