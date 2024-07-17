@@ -54,6 +54,7 @@ document
     editButtonSpan.setAttribute("class", "col-md-6");
     editButtonSpan.setAttribute("id", "edit-btn");
     let editButton = document.createElement("button");
+    editButton.setAttribute("class", "btn btn-warning");
     editButton.textContent = "Edit";
     editButtonSpan.appendChild(editButton);
     buttonContainer.appendChild(editButtonSpan);
@@ -63,6 +64,7 @@ document
     removeButtonSpan.setAttribute("class", "col-md-6");
     removeButtonSpan.setAttribute("id", "remove-btn");
     let removeButton = document.createElement("button");
+    removeButton.setAttribute("class", "btn btn-danger");
     removeButton.textContent = "Remove";
     removeButtonSpan.appendChild(removeButton);
     buttonContainer.appendChild(removeButtonSpan);
