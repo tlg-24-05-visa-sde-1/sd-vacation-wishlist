@@ -29,6 +29,25 @@ export function appendCard(newCard) {
   document.getElementById("cardContainer").appendChild(newCard);
 }
 
+export function storeCard(cardProperties) {
+  // if local storage is empty, generate empty array
+  if (localStorage.getItem("cards") === null) {
+    localStorage.setItem("cards", "[]");
+  }
+
+  // collect any existing cards
+  let existingCards = JSON.parse(localStorage.getItem("cards"));
+
+  // add new card
+  existingCards.push(cardProperties);
+
+  // stringify updated array
+  existingCards = JSON.stringify(existingCards);
+
+  // update local storage
+  localStorage.setItem("cards", existingCards);
+}
+
 export function clearForm() {
   document.querySelector("form").reset();
 }
