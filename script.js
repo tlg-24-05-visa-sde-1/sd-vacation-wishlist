@@ -4,7 +4,7 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // collect user input values
+    // collect input variables
     let destinationName = document.getElementById("destinationName").value;
     let location = document.getElementById("location").value;
     let photoURL = document.getElementById("photo").value;
@@ -93,9 +93,28 @@ document
     document.querySelector("form").reset();
   });
 
-// add event listener to remove button
+// add event listener to remove button & edit button
 document.getElementById("cardContainer").addEventListener("click", (event) => {
+  // create variable for card element
+  let card = event.target.parentNode.parentNode.parentNode.parentNode;
+  // if the element is a remove button, remove the parent card element
   if (event.target.classList.contains("btn-danger")) {
-    event.target.parentNode.parentNode.parentNode.parentNode.remove();
+    card.remove();
+  }
+  // if the element is an edit button, offer edits via prompt for each field
+  else if (event.target.classList.contains("btn-warning")) {
+    // offer edit for destination name
+    let newName = prompt("Enter new name");
+    card.querySelector(".card-destination").textContent = newName;
+    // offer edit for location
+    let newLocation = prompt("Enter new location");
+    card.querySelector(".card-location").textContent = newLocation;
+    // offer edit for photoURL
+    let newPhoto = prompt("Enter new photo url");
+    console.log(newPhoto);
+    card.querySelector("img").setAttribute("src", newPhoto);
+    // offer edit for description
+    let newDescription = prompt("Enter new description");
+    card.querySelector(".card-description").textContent = newDescription;
   }
 });
