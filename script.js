@@ -1,3 +1,43 @@
+// imports
+import {
+  createCard,
+  alterHeading,
+  appendCard,
+  storeCard,
+  clearForm,
+} from "./js-modules/card.js";
+
+import {
+  findCard,
+  updateName,
+  updateLocation,
+  updatePhoto,
+  updateDescription,
+} from "./js-modules/card-buttons.js";
+
+// add event listener to check local storage when browser is refreshed
+window.addEventListener("load", () => {
+  // if local storage is not empty,
+  if (localStorage.cards.length > 0) {
+    console.log(localStorage.cards);
+    // keep altered heading
+    alterHeading();
+
+    // parse array
+    let cardArray = JSON.parse(localStorage.cards);
+
+    // for each stored card
+    for (let i = 0; i < cardArray.length; i++) {
+      // parse the card
+      let storedCard = cardArray[i];
+      // create card
+      let displayCard = createCard(storedCard);
+      // append to container
+      appendCard(displayCard);
+    }
+  }
+});
+
 // add event listener to form
 document
   .getElementById("inputForm")
@@ -10,21 +50,15 @@ document
     let photoURL = document.getElementById("photo").value;
     let description = document.getElementById("description").value;
 
+    let cardProperties = { destinationName, location, photoURL, description };
+
     // create new card div
-    let newCard = document.createElement("div");
-    newCard.className = "card";
-    newCard.innerHTML = `
-      <img class="card-img-top" src=${photoURL} alt="Card image cap"/>
-      <div class="card-body">
-        <h5 class="card-destination">${destinationName}</h5>
-        <h6 class="card-location">${location}</h6>
-        <p class="card-description">${description}</p>
-        <div class="card-buttons row">
-          <span class="col-md-6" id="edit-btn"><button class="btn btn-warning">Edit</button></span>
-          <span class="col-md-6" id="remove-btn"><button class="btn btn-danger">Remove</button></span>
-        </div>
-      </div>
-      `;
+    let newCard = createCard({
+      photoURL,
+      destinationName,
+      location,
+      description,
+    });
 
     /* CARD CREATION STEPS
     // create img
@@ -84,19 +118,23 @@ document
 */
 
     // alter card container heading
-    document.querySelector("h4").textContent = "My WishList";
+    alterHeading();
 
     // append card to container
-    document.getElementById("cardContainer").appendChild(newCard);
+    appendCard(newCard);
+
+    // add card properties to local storage
+    storeCard(cardProperties);
 
     // clear the form
-    document.querySelector("form").reset();
+    clearForm();
   });
 
 // add event listener to remove button & edit button
 document.getElementById("cardContainer").addEventListener("click", (event) => {
   // create variable for card element
-  let card = event.target.parentNode.parentNode.parentNode.parentNode;
+  let card = findCard(event);
+
   // if the element is a remove button, remove the parent card element
   if (event.target.classList.contains("btn-danger")) {
     card.remove();
@@ -105,16 +143,18 @@ document.getElementById("cardContainer").addEventListener("click", (event) => {
   else if (event.target.classList.contains("btn-warning")) {
     // offer edit for destination name
     let newName = prompt("Enter new name");
-    card.querySelector(".card-destination").textContent = newName;
+    updateName(card, newName);
+
     // offer edit for location
     let newLocation = prompt("Enter new location");
-    card.querySelector(".card-location").textContent = newLocation;
+    updateLocation(card, newLocation);
+
     // offer edit for photoURL
     let newPhoto = prompt("Enter new photo url");
-    console.log(newPhoto);
-    card.querySelector("img").setAttribute("src", newPhoto);
+    updatePhoto(card, newPhoto);
+
     // offer edit for description
     let newDescription = prompt("Enter new description");
-    card.querySelector(".card-description").textContent = newDescription;
+    updateDescription(card, newDescription);
   }
 });
