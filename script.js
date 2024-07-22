@@ -15,6 +15,13 @@ import {
   updateDescription,
 } from "./js-modules/card-buttons.js";
 
+// log test for unsplash api
+fetch(
+  `https://api.unsplash.com/photos/random?client_id=WchHdiSHbO997Zv97fP8xU1xTFo6v2d9T2K4U7kbZUk`
+)
+  .then((response) => response.json())
+  .then((data) => console.log(data.urls.regular));
+
 // add event listener to check local storage when browser is refreshed
 window.addEventListener("load", () => {
   // if local storage is not empty,
@@ -47,14 +54,12 @@ document
     // collect input variables
     let destinationName = document.getElementById("destinationName").value;
     let location = document.getElementById("location").value;
-    let photoURL = document.getElementById("photo").value;
     let description = document.getElementById("description").value;
 
-    let cardProperties = { destinationName, location, photoURL, description };
+    let cardProperties = { destinationName, location, description };
 
     // create new card div
     let newCard = createCard({
-      photoURL,
       destinationName,
       location,
       description,
