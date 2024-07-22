@@ -1,13 +1,18 @@
-export function createCard({
-  photoURL,
-  destinationName,
-  location,
-  description,
-}) {
+async function getPhoto(card) {
+  const response = await fetch(
+    `https://api.unsplash.com/photos/random?client_id=WchHdiSHbO997Zv97fP8xU1xTFo6v2d9T2K4U7kbZUk`
+  );
+
+  const data = await response.json();
+  const photo = data.urls.regular;
+  card.querySelector(".card-img-top").setAttribute("src", photo);
+}
+
+export function createCard({ destinationName, location, description }) {
   let newCard = document.createElement("div");
   newCard.className = "card";
   newCard.innerHTML = `
-      <img class="card-img-top" src=${photoURL} alt="Card image cap"/>
+      <img class="card-img-top" src="./images/Austin.jpg" alt="Card image cap"/>
       <div class="card-body">
         <h5 class="card-destination">${destinationName}</h5>
         <h6 class="card-location">${location}</h6>
@@ -18,6 +23,7 @@ export function createCard({
         </div>
       </div>
       `;
+  getPhoto(newCard);
   return newCard;
 }
 
